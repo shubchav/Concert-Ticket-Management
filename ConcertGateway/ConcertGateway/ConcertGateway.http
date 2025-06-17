@@ -1,0 +1,6 @@
+@ConcertGateway_HostAddress = http://localhost:5228
+
+GET {{ConcertGateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
