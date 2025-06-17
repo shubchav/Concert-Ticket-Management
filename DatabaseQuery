@@ -1,0 +1,46 @@
+Scipts:
+DB : EventService
+CREATE TABLE EventDetail (
+    EventDetailId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    Name NVARCHAR(255) NOT NULL,
+    Capacity INT NOT NULL,
+    EventStartDate DATETIME NULL,
+    EventEndDate DATETIME NULL,
+    IsEventCancel BIT NOT NULL,
+    CreateDate DATETIME NULL,
+    IsDeleted BIT NOT NULL,
+    VenueId INT NOT NULL
+);
+------------------------------------------
+DB : TicketService
+CREATE TABLE TicketTypes (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL,
+    QuantityAvailable INT NOT NULL,
+    Description NVARCHAR(255) NULL
+);
+INSERT INTO TicketTypes (Name, Price, QuantityAvailable, Description)
+VALUES 
+('General', 50.00, 1500, 'Open seating, first-come-first-served'),
+('VIP', 150.00, 100, 'Includes premium seating and backstage access'),
+('Front Row', 200.00, 100, 'Closest to stage, limited availability'),
+('Balcony', 40.00, 100, 'Elevated seating with clear view'),
+('Student Discount', 30.00, 100, 'Valid student ID required at entry'),
+('Early Bird', 35.00, 100, 'Discounted price for early purchase');
+CREATE TABLE TicketManager (
+    TicketId INT IDENTITY(1,1) PRIMARY KEY,
+    EventId INT NOT NULL,
+    TicketTypeId INT NOT NULL,
+    IsPaymentDone BIT NOT NULL DEFAULT 0,
+    IsReserved BIT NOT NULL DEFAULT 0,
+    IsCancelled BIT NOT NULL DEFAULT 0
+);
+------------------------------------------------------------------
+DB: VenueService
+CREATE TABLE Venues (
+    VenueId INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL,
+    Location NVARCHAR(255) NOT NULL,
+    Capacity INT NOT NULL
+);
